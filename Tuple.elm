@@ -1,4 +1,4 @@
-module Tuple (..) where
+module Tuple exposing (..)
 
 {-|
 # Map
@@ -10,6 +10,8 @@ module Tuple (..) where
 # Transform
 @docs toList
 -}
+
+-- where
 
 
 {-| -}
