@@ -1,4 +1,4 @@
-module Tuple exposing (..)
+module Tuple2 exposing (..)
 
 {-|
 # Map

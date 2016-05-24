@@ -7,7 +7,7 @@
         "."
     ],
     "exposed-modules": [
-        "Tuple", "Tuple3"
+        "Tuple2", "Tuple3"
     ],
     "dependencies": {
         "elm-lang/core": "4.0.0 <= v < 5.0.0"
