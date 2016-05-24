@@ -1,6 +1,7 @@
-module Tuple (..) where
+module Tuple exposing (..)
 
 {-|
+
 # Map
 @docs map, mapFst, mapSnd, mapEach, mapBoth
 
@@ -9,6 +10,7 @@ module Tuple (..) where
 
 # Transform
 @docs toList
+
 -}
 
 
