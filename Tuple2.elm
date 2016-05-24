@@ -11,8 +11,6 @@ module Tuple2 exposing (..)
 @docs toList
 -}
 
--- where
-
 
 {-| -}
 mapFst : (a -> x) -> ( a, b ) -> ( x, b )
