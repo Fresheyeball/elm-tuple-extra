@@ -1,4 +1,4 @@
-module Tuple3 (..) where
+module Tuple3 exposing (..)
 
 {-|
 # Getters

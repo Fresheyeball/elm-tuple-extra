@@ -1,4 +1,4 @@
-module Tuple (..) where
+module Tuple2 exposing (..)
 
 {-|
 # Map
