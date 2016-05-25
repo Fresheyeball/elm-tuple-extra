@@ -8,6 +8,9 @@ module Tuple2 exposing (..)
 # Swap
 @docs swap
 
+# Sorting
+@docs sort, sortBy, sortWith
+
 # Transform
 @docs toList
 
@@ -48,6 +51,35 @@ map =
 swap : ( a, b ) -> ( b, a )
 swap ( a, b ) =
     ( b, a )
+
+
+{-| -}
+sort : ( comparable, comparable ) -> ( comparable, comparable )
+sort ( a, b ) =
+    if a > b then
+        ( b, a )
+    else
+        ( a, b )
+
+
+{-| -}
+sortBy : (a -> comparable) -> ( a, a ) -> ( a, a )
+sortBy f ( a, b ) =
+    if f a > f b then
+        ( b, a )
+    else
+        ( a, b )
+
+
+{-| -}
+sortWith : (a -> a -> Order) -> ( a, a ) -> ( a, a )
+sortWith cmp ( a, b ) =
+    case cmp a b of
+        GT ->
+            ( b, a )
+
+        _ ->
+            ( a, b )
 
 
 {-| -}

@@ -10,6 +10,9 @@ module Tuple3 exposing (..)
 # Swap
 @docs swirlr, swirll
 
+# Sorting
+@docs sort, sortBy, sortWith
+
 # Transform
 @docs toList
 -}
@@ -79,6 +82,40 @@ mapAll f ( a, a', a'' ) =
 map : (c -> x) -> ( a, b, c ) -> ( a, b, x )
 map =
     mapTrd
+
+
+{-| -}
+sort : ( comparable, comparable, comparable ) -> ( comparable, comparable, comparable )
+sort =
+    sortWith compare
+
+
+{-| -}
+sortBy : (a -> comparable) -> ( a, a, a ) -> ( a, a, a )
+sortBy conv =
+    sortWith (\x y -> compare (conv x) (conv y))
+
+
+{-| -}
+sortWith : (a -> a -> Order) -> ( a, a, a ) -> ( a, a, a )
+sortWith cmp ( a, b, c ) =
+    let
+        notGT x y =
+            not <| cmp x y == GT
+    in
+        if a `notGT` b then
+            if b `notGT` c then
+                ( a, b, c )
+            else if a `notGT` c then
+                ( a, c, b )
+            else
+                ( c, a, b )
+        else if a `notGT` c then
+            ( b, a, c )
+        else if b `notGT` c then
+            ( b, c, a )
+        else
+            ( c, b, a )
 
 
 {-| -}
