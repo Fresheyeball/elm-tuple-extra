@@ -2,6 +2,9 @@ module Tuple2 exposing (..)
 
 {-|
 
+# Tuple definition
+@docs (=>)
+
 # Map
 @docs map, mapFst, mapSnd, mapEach, mapBoth
 
@@ -15,6 +18,20 @@ module Tuple2 exposing (..)
 @docs toList
 
 -}
+
+
+{-| Define a double with infix operator. Primarily used, when defining a List
+    with key-value Tuples.
+    
+    Dict.fromList
+        [ 0 => 'a'
+        , 1 => 'b'
+        , 2 => 'c'
+        ]
+-}
+(=>) : a -> b -> (a, b)
+(=>) a b =>
+  (a, b)
 
 
 {-| -}
