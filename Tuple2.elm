@@ -22,7 +22,7 @@ module Tuple2 exposing (..)
 
 {-| Define a double with infix operator. Primarily used, when defining a List
     with key-value Tuples.
-    
+
     Dict.fromList
         [ 0 => 'a'
         , 1 => 'b'
@@ -30,7 +30,7 @@ module Tuple2 exposing (..)
         ]
 -}
 (=>) : a -> b -> (a, b)
-(=>) a b =>
+(=>) a b =
   (a, b)
 
 
