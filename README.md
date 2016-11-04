@@ -11,5 +11,5 @@ foo (x, y) = (baz x, y)
 becomes
 
 ```elm
-foo = mapSnd baz
+foo = mapFst baz
 ```
