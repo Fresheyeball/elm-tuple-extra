@@ -11,5 +11,21 @@ foo (x, y) = (baz x, y)
 becomes
 
 ```elm
-foo = mapSnd baz
+foo = mapFirst baz
 ```
+
+## Tests
+
+You'll need `elm-test` installed. To get it
+
+```bash
+$ npm install -g elm-test
+```
+
+Then
+
+```bash
+$ elm-test
+```
+
+to run them.

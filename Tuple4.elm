@@ -2,10 +2,10 @@ module Tuple4 exposing (..)
 
 {-|
 # Getters
-@docs fst, snd, trd, fth, tail, init
+@docs first, second, third, fourth, tail, init
 
 # Maps
-@docs map, mapFst, mapSnd, mapTrd, mapEach, mapAll
+@docs map, mapFirst, mapSecond, mapThird, mapFourth, mapEach, mapAll
 
 # Swap
 @docs swirlr, swirll
@@ -17,28 +17,30 @@ module Tuple4 exposing (..)
 @docs toList
 -}
 
+import Tuple3
+
 
 {-| -}
-fst : ( a, b, c, d ) -> a
-fst ( a, _, _, _ ) =
+first : ( a, b, c, d ) -> a
+first ( a, _, _, _ ) =
     a
 
 
 {-| -}
-snd : ( a, b, c, d ) -> b
-snd ( _, b, _, _ ) =
+second : ( a, b, c, d ) -> b
+second ( _, b, _, _ ) =
     b
 
 
 {-| -}
-trd : ( a, b, c, d ) -> c
-trd ( _, _, c, _ ) =
+third : ( a, b, c, d ) -> c
+third ( _, _, c, _ ) =
     c
 
 
 {-| -}
-frt : ( a, b, c, d ) -> d
-frt ( _, _, _, d) =
+fourth : ( a, b, c, d ) -> d
+fourth ( _, _, _, d ) =
     d
 
 
@@ -55,45 +57,45 @@ init ( a, b, c, _ ) =
 
 
 {-| -}
-mapFst : (a -> x) -> ( a, b, c, d) -> ( x, b, c, d )
-mapFst f ( a, b, c, d ) =
+mapFirst : (a -> x) -> ( a, b, c, d ) -> ( x, b, c, d )
+mapFirst f ( a, b, c, d ) =
     ( f a, b, c, d )
 
 
 {-| -}
-mapSnd : (b -> x) -> ( a, b, c, d ) -> ( a, x, c, d )
-mapSnd f ( a, b, c, d ) =
+mapSecond : (b -> x) -> ( a, b, c, d ) -> ( a, x, c, d )
+mapSecond f ( a, b, c, d ) =
     ( a, f b, c, d )
 
 
 {-| -}
-mapTrd : (c -> x) -> ( a, b, c, d ) -> ( a, b, x, d )
-mapTrd f ( a, b, c, d ) =
+mapThird : (c -> x) -> ( a, b, c, d ) -> ( a, b, x, d )
+mapThird f ( a, b, c, d ) =
     ( a, b, f c, d )
 
 
 {-| -}
-mapFrt : (d -> x) -> ( a, b, c, d ) -> ( a, b, c, x )
-mapFrt f ( a, b, c, d ) =
+mapFourth : (d -> x) -> ( a, b, c, d ) -> ( a, b, c, x )
+mapFourth f ( a, b, c, d ) =
     ( a, b, c, f d )
 
 
 {-| -}
-mapEach : (a -> x) -> (b -> x') -> (c -> x'') -> (d -> x''') -> ( a, b, c, d ) -> ( x, x', x'', x''' )
-mapEach f f' f'' ff ( a, b, c, d ) =
-    ( f a, f' b, f'' c, ff d )
+mapEach : (a -> x) -> (b -> x_) -> (c -> x__) -> (d -> x___) -> ( a, b, c, d ) -> ( x, x_, x__, x___ )
+mapEach f f_ f__ ff ( a, b, c, d ) =
+    ( f a, f_ b, f__ c, ff d )
 
 
 {-| -}
 mapAll : (a -> b) -> ( a, a, a, a ) -> ( b, b, b, b )
-mapAll f ( a, a', a'', aa ) =
-    ( f a, f a', f a'', f aa )
+mapAll f ( a, a_, a__, aa ) =
+    ( f a, f a_, f a__, f aa )
 
 
 {-| -}
 map : (d -> x) -> ( a, b, c, d ) -> ( a, b, c, x )
 map =
-    mapFrt
+    mapFourth
 
 
 {-| -}
@@ -114,20 +116,18 @@ sortWith cmp ( a, b, c, d ) =
     let
         goesBefore x y =
             not <| cmp x y == GT
+
+        ( a_, b_, c_ ) =
+            Tuple3.sortWith cmp ( a, b, c )
     in
-        if a `goesBefore` b then
-            if b `goesBefore` c then
-                ( a, b, c )
-            else if a `goesBefore` c then
-                ( a, c, b )
-            else
-                ( c, a, b )
-        else if a `goesBefore` c then
-            ( b, a, c )
-        else if b `goesBefore` c then
-            ( b, c, a )
+        if goesBefore d a_ then
+            ( d, a_, b_, c_ )
+        else if goesBefore d b_ then
+            ( a_, d, b_, c_ )
+        else if goesBefore d c_ then
+            ( a_, b_, d, c_ )
         else
-            ( c, b, a )
+            ( a_, b_, c_, d )
 
 
 {-| -}
