@@ -6,7 +6,7 @@ module Tuple2 exposing (..)
 @docs (=>)
 
 # Map
-@docs map, mapFst, mapSnd, mapEach, mapBoth
+@docs map, mapFirst, mapSecond, mapEach, mapBoth
 
 # Swap
 @docs swap
@@ -29,39 +29,39 @@ module Tuple2 exposing (..)
         , 2 => 'c'
         ]
 -}
-(=>) : a -> b -> (a, b)
+(=>) : a -> b -> ( a, b )
 (=>) a b =
-  (a, b)
+    ( a, b )
 
 
 {-| -}
-mapFst : (a -> x) -> ( a, b ) -> ( x, b )
-mapFst f ( a, b ) =
+mapFirst : (a -> x) -> ( a, b ) -> ( x, b )
+mapFirst f ( a, b ) =
     ( f a, b )
 
 
 {-| -}
-mapSnd : (b -> x) -> ( a, b ) -> ( a, x )
-mapSnd f ( c, a ) =
+mapSecond : (b -> x) -> ( a, b ) -> ( a, x )
+mapSecond f ( c, a ) =
     ( c, f a )
 
 
 {-| -}
-mapEach : (a -> x) -> (b -> x') -> ( a, b ) -> ( x, x' )
-mapEach f f' ( a, c ) =
-    ( f a, f' c )
+mapEach : (a -> x) -> (b -> x_) -> ( a, b ) -> ( x, x_ )
+mapEach f f_ ( a, c ) =
+    ( f a, f_ c )
 
 
 {-| -}
 mapBoth : (a -> b) -> ( a, a ) -> ( b, b )
-mapBoth f ( a, a' ) =
-    ( f a, f a' )
+mapBoth f ( a, a_ ) =
+    ( f a, f a_ )
 
 
 {-| -}
 map : (b -> x) -> ( a, b ) -> ( a, x )
 map =
-    mapSnd
+    mapSecond
 
 
 {-| -}

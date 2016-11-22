@@ -1,33 +1,31 @@
-module Test.Tuple4 exposing (main, tests)
+module Test.Tuple4 exposing (tests)
 
-import Check exposing (..)
-import Check.Producer as CP exposing (Producer)
-import Check.Test as CT
-import ElmTest as T exposing (Test)
 import Tuple4
+import Fuzz exposing (Fuzzer)
+import Test exposing (Test, describe, fuzz)
+import Expect
 
 
--- import Laws exposing (claim, equivalent)
-
-
-main : Program Never
-main =
-    T.runSuiteHtml tests
+tuple4 : Fuzzer ( Int, Int, Int, Int )
+tuple4 =
+    Fuzz.map4 (\a b c d -> ( a, b, c, d )) Fuzz.int Fuzz.int Fuzz.int Fuzz.int
 
 
 tests : Test
 tests =
-    suite "Tuple3"
-        [ suite "sort"
-            [ claim "sort is idempotent"
-                `that` (Tuple4.sort >> Tuple3.sort)
-                `is` Tuple4.sort
-                `for` CP.tuple4 ( CP.int, CP.int, CP.int, CP.int )
-            , claim "sort commutes with toList"
-                `that` (Tuple4.sort >> Tuple4.toList)
-                `is` (Tuple4.toList >> List.sort)
-                `for` CP.tuple4 ( CP.int, CP.int, CP.int, CP.int )
+    describe "Tuple4"
+        [ describe "sort"
+            [ fuzz tuple4 "is idempotent" <|
+                (\x ->
+                    Expect.equal
+                        (x |> Tuple4.sort |> Tuple4.sort)
+                        (x |> Tuple4.sort)
+                )
+            , fuzz tuple4 "commutes with toList" <|
+                (\x ->
+                    Expect.equal
+                        (x |> Tuple4.sort |> Tuple4.toList)
+                        (x |> Tuple4.toList |> List.sort)
+                )
             ]
         ]
-        |> quickCheck
-        |> CT.evidenceToTest
