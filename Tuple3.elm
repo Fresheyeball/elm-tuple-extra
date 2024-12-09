@@ -14,7 +14,7 @@ module Tuple3 exposing (..)
 @docs sort, sortBy, sortWith
 
 # Transform
-@docs toList
+@docs toList, toTuple
 -}
 
 import Tuple2
@@ -132,3 +132,9 @@ swirll ( a, b, c ) =
 toList : ( a, a, a ) -> List a
 toList ( a, b, c ) =
     [ a, b, c ]
+
+
+{-| -}
+toTuple : (a -> x) -> (a -> x_) -> (a -> x__) -> a -> ( x, x_, x__ )
+toTuple f f_ f__ a =
+    ( f a, f_ a, f__ a )

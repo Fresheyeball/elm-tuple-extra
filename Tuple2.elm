@@ -15,7 +15,7 @@ module Tuple2 exposing (..)
 @docs sort, sortBy, sortWith
 
 # Transform
-@docs toList
+@docs toList, toTuple
 
 -}
 
@@ -103,3 +103,19 @@ sortWith cmp ( a, b ) =
 toList : ( a, a ) -> List a
 toList ( a, b ) =
     [ a, b ]
+
+
+{-| Functions with multiple arguments are not convenient for composition. However converting them to a Tuple may help in some cases
+
+    type alias Model =
+        { foo : Int, bar : Int, baz : String }
+
+
+    addFooBar : Model -> Int
+    addFooBar =
+        toTuple .foo .bar
+            >> uncurry (+)
+-}
+toTuple : (a -> x) -> (a -> x_) -> a -> ( x, x_ )
+toTuple f f_ a =
+    ( f a, f_ a )
